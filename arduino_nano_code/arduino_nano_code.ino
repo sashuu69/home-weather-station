@@ -30,13 +30,13 @@ void setup() {
   
   while (!Serial) continue;
   
-  sSerialToUNO.begin(38400);
+  sSerialToUNO.begin(4800);
 }
 
 void loop() {
   int mq4_value, mq135_value, mq5_value, mq2_value;
 
-  // Get values from Sensor
+  // Get values from Sensor in PPM
   mq4_value = analogRead(mq4);
   mq135_value = analogRead(mq135);
   mq5_value = analogRead(mq5);
@@ -44,10 +44,10 @@ void loop() {
 
   // Create JSON data
   StaticJsonDocument<200> doc;
-  doc["mq4"] = mq4_value;
-  doc["mq135"] = mq135_value;
-  doc["mq5"] = mq5_value;
-  doc["mq2"] = mq2_value;
+  doc["cng_gas"] = mq4_value;
+  doc["aqi_gas"] = mq135_value;
+  doc["lpg_gas"] = mq5_value;
+  doc["smoke_gas"] = mq2_value;
   serializeJson(doc, sSerialToUNO); // Send JSON via Serial
 
   // Display data for Debugging
@@ -57,4 +57,6 @@ void loop() {
   Serial.print("MQ-5 Value: ");Serial.print(mq5_value, DEC);Serial.println(" PPM");
   Serial.print("MQ-2 Value: ");Serial.print(mq2_value, DEC);Serial.println(" PPM");
   Serial.println("************************************\n\n");
+  
+  delay(5000);
 }
