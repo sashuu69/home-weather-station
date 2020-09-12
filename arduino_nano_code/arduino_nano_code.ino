@@ -1,6 +1,10 @@
 /*
 
 */
+#include <ArduinoJson.h>
+#include <SoftwareSerial.h>
+
+SoftwareSerial mySerial(6, 7); //RX, TX
 
 const int mq4 = A0;
 const int mq135 = A1;
@@ -13,6 +17,7 @@ void setup() {
   pinMode(mq5, INPUT);
   pinMode(mq2, INPUT);
   Serial.begin(9600);
+  mySerial.begin(38400);
 }
 
 void loop() {
@@ -22,6 +27,12 @@ void loop() {
   mq135_value = analogRead(mq135);
   mq5_value = analogRead(mq5);
   mq2_value = analogRead(mq2);
+  
+  StaticJsonDocument<200> doc;
+  doc["mq4"] = mq4_value;
+  doc["mq135"] = mq135_value;
+  doc["mq5"] = mq5_value;
+  doc["mq2"] = mq2_value;
   
   Serial.println("************************************");
   Serial.print("MQ-4 Value: ");Serial.print(mq4_value, DEC);Serial.println(" PPM");
