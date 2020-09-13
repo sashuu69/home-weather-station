@@ -58,27 +58,41 @@ void loop() {
       // Print the values
       // (we must use as<T>() to resolve the ambiguity)
       Serial.println("****************************");
-      Serial.print("cng_gas = ");
-      Serial.println(doc["cng_gas"].as<int>());
-      Serial.print("aqi_gas = ");
+      
+      Serial.print("CNG Gas : ");
+      Serial.print(doc["cng_gas"].as<int>());
+      Serial.println(" PPM");
+      
+      Serial.print("Air Quality Index : ");
       Serial.println(doc["aqi_gas"].as<int>());
-      Serial.print("lpg_gas = ");
-      Serial.println(doc["lpg_gas"].as<int>());
-      Serial.print("smoke_gas = ");
-      Serial.println(doc["smoke_gas"].as<int>());
-      Serial.print("mq7_value = ");
-      Serial.println(mq7_value);
-      Serial.print("rainsensor_value = ");
+      
+      Serial.print("LGP Gas : ");
+      Serial.print(doc["lpg_gas"].as<int>());
+      Serial.println(" PPM");
+      
+      Serial.print("Smoke : ");
+      Serial.print(doc["smoke_gas"].as<int>());
+      Serial.println(" PPM");
+      
+      Serial.print("CO Gas : ");
+      Serial.print(mq7_value);
+      Serial.println(" PPM");
+      
+      Serial.print("Rain Sensor : ");
       Serial.println(rainSensor_value);
-      Serial.print("Temperature = ");
+      
+      Serial.print("Temperature : ");
       Serial.print(dhtTemp);
       Serial.println(" °C");
-      Serial.print("Humidity = ");
+      
+      Serial.print("Humidity : ");
       Serial.print(dhtHum);
       Serial.println(" % ");
-      Serial.print("Heat Index = ");
+      
+      Serial.print("Heat Index : ");
       Serial.print(heatIndex);
       Serial.println(" °C");
+      
       Serial.println("****************************\n\n");
     } 
     else 
