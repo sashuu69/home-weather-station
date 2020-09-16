@@ -41,24 +41,21 @@ void setup() {
   pinMode(rainSensorPin, INPUT);
   pinMode(mq7, INPUT);
   dht.begin();
-
-  if (!bmp.begin()) {
-    Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
-    while (1);
-  }
   
   // Initialise Serial
   Serial.begin(9600);
-
+  
   /* Default settings from datasheet. */
   bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* Operating Mode. */
                   Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
                   Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
                   Adafruit_BMP280::FILTER_X16,      /* Filtering. */
                   Adafruit_BMP280::STANDBY_MS_500); /* Standby time. */
+
+  bmp.begin();
   
   while (!Serial) continue;
-
+  
   sSerialToNano.begin(4800);
 }
 
@@ -77,50 +74,22 @@ void loop() {
   if (sSerialToNano.available()) {
     
     StaticJsonDocument<300> doc;
-
+    
     // Read the JSON document from the "link" serial port
     DeserializationError err = deserializeJson(doc, sSerialToNano);
-
+    
     if (err == DeserializationError::Ok) {
       
-      // (we must use as<T>() to resolve the ambiguity)
-      Serial.println("****************************");
+      int cngGas = doc["cng_gas"].as<int>();
+      int apiGas = doc["aqi_gas"].as<int>();
+      int lpgGas = doc["lpg_gas"].as<int>();
+      int smokeGas = doc["smoke_gas"].as<int>();
       
-      Serial.print("CNG Gas : ");
-      Serial.print(doc["cng_gas"].as<int>());
-      Serial.println(" PPM");
+      String finalValue;
       
-      Serial.print("Air Quality Index : ");
-      Serial.println(doc["aqi_gas"].as<int>());
-      
-      Serial.print("LGP Gas : ");
-      Serial.print(doc["lpg_gas"].as<int>());
-      Serial.println(" PPM");
-      
-      Serial.print("Smoke : ");
-      Serial.print(doc["smoke_gas"].as<int>());
-      Serial.println(" PPM");
-      
-      Serial.print("CO Gas : ");
-      Serial.print(mq7_value);
-      Serial.println(" PPM");
-      
-      Serial.print("Rain Sensor : ");
-      Serial.println(rainSensor_value);
-      
-      Serial.print("Temperature : ");
-      Serial.print(dhtTemp);
-      Serial.println(" °C");
-      
-      Serial.print("Humidity : ");
-      Serial.print(dhtHum);
-      Serial.println(" % ");
-      
-      Serial.print("Heat Index : ");
-      Serial.print(heatIndex);
-      Serial.println(" °C");
-      
-      Serial.println("****************************\n\n");
+      // CNG,AQI, LPG, Smoke, CO, Rain sensor, DHT Temperature, DHT Humidity, DHT HI, BMP Temperature, BMP Pressure, BMP altitude
+      finalValue = "[" + String(cngGas?cngGas:0) + "," + String(apiGas?apiGas:0) + "," + String(lpgGas?lpgGas:0) + "," + String(smokeGas?smokeGas:0) + "," + String(mq7_value?mq7_value:0) + "," + String(rainSensor_value?rainSensor_value:0) + "," + String(dhtTemp?dhtTemp:0) + "," + String(dhtHum?dhtHum:0) + "," + String(heatIndex?heatIndex:0) + "," + String(bmpTemp?bmpTemp:0) + "," + String(bmpPres?bmpPres:0) + "," + String(bmpAlt?bmpAlt:0) + "]";
+      Serial.println(finalValue);
     } 
     else {
       // Print error to the "debug" serial port
