@@ -9,6 +9,7 @@
  */
 
 #include <ArduinoJson.h> // Library for JSON
+
 #include <SoftwareSerial.h> // Library for Software Serial
 
 SoftwareSerial sSerialToUNO(6, 7); //RX, TX
@@ -19,6 +20,8 @@ const int mq5 = A2; // LPG gas
 const int mq2 = A3; // Smoke
 
 void setup() {
+  // put your setup code here, to run once:
+  
   // Initialise sensors
   pinMode(mq4, INPUT);
   pinMode(mq135, INPUT);
@@ -34,13 +37,13 @@ void setup() {
 }
 
 void loop() {
-  int mq4_value, mq135_value, mq5_value, mq2_value;
+  // put your main code here, to run repeatedly:
 
   // Get values from Sensor in PPM
-  mq4_value = analogRead(mq4);
-  mq135_value = analogRead(mq135);
-  mq5_value = analogRead(mq5);
-  mq2_value = analogRead(mq2);
+  int mq4_value = analogRead(mq4);
+  int mq135_value = analogRead(mq135);
+  int mq5_value = analogRead(mq5);
+  int mq2_value = analogRead(mq2);
 
   // Create JSON data
   StaticJsonDocument<200> doc;
@@ -58,5 +61,5 @@ void loop() {
   Serial.print("MQ-2 Value: ");Serial.print(mq2_value, DEC);Serial.println(" PPM");
   Serial.println("************************************\n\n");
   
-  delay(5000);
+  delay(30000); // 30 Seconds
 }

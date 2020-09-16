@@ -1,21 +1,35 @@
-/*
+  /*
  * Project Name : Home Weather Station
  * Purpose : To get values from MQ-4, MQ-135, MQ-5 and MQ-2 and send to UNO via software serial
  * Created on : 12 Sep 2020
  * Created by : Sashwat K <sashwat0001@gmail.com>
- * Revision : 1
+ * Revision : 2
  * Last Updated by : Sashwat K <sashwat0001@gmail.com> 
- * Last updated on : 12 Sep 2020
+ * Last updated on : 16 Sep 2020
  */
 
 #include <ArduinoJson.h> // Library for JSON
+
 #include <SoftwareSerial.h> // Library for Software Serial
+
 #include "DHT.h"
 #define DHTPIN 8
 #define DHTTYPE DHT22
 
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_BMP280.h>
+
+#define BMP_SCK  (13)
+#define BMP_MISO (12)
+#define BMP_MOSI (11)
+#define BMP_CS   (10)
+
 SoftwareSerial sSerialToNano(7, 6); // RX, TX
+
 DHT dht(DHTPIN, DHTTYPE);
+
+Adafruit_BMP280 bmp; // I2C
 
 const int rainSensorPin = A0;
 const int mq7 = A1;
@@ -27,9 +41,21 @@ void setup() {
   pinMode(rainSensorPin, INPUT);
   pinMode(mq7, INPUT);
   dht.begin();
+
+  if (!bmp.begin()) {
+    Serial.println(F("Could not find a valid BMP280 sensor, check wiring!"));
+    while (1);
+  }
   
   // Initialise Serial
   Serial.begin(9600);
+
+  /* Default settings from datasheet. */
+  bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* Operating Mode. */
+                  Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
+                  Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
+                  Adafruit_BMP280::FILTER_X16,      /* Filtering. */
+                  Adafruit_BMP280::STANDBY_MS_500); /* Standby time. */
   
   while (!Serial) continue;
 
@@ -38,13 +64,15 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  int mq7_value, rainSensor_value;
-
-  mq7_value= analogRead(mq7);
-  rainSensor_value = analogRead(rainSensorPin);
+  
+  int mq7_value = analogRead(mq7);
+  int rainSensor_value = analogRead(rainSensorPin);
   float dhtTemp = dht.readTemperature();
   float dhtHum = dht.readHumidity();
   float heatIndex = dht.computeHeatIndex(dhtTemp, dhtHum, false);
+  float bmpTemp = bmp.readTemperature();
+  float bmpPres = bmp.readPressure();
+  float bmpAlt = bmp.readAltitude();
   
   if (sSerialToNano.available()) {
     
@@ -53,9 +81,8 @@ void loop() {
     // Read the JSON document from the "link" serial port
     DeserializationError err = deserializeJson(doc, sSerialToNano);
 
-    if (err == DeserializationError::Ok) 
-    {
-      // Print the values
+    if (err == DeserializationError::Ok) {
+      
       // (we must use as<T>() to resolve the ambiguity)
       Serial.println("****************************");
       
@@ -95,8 +122,7 @@ void loop() {
       
       Serial.println("****************************\n\n");
     } 
-    else 
-    {
+    else {
       // Print error to the "debug" serial port
       Serial.print("deserializeJson() returned ");
       Serial.println(err.c_str());
