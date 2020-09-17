@@ -2,3 +2,7 @@ apiKey=<Add API Key>
 authDomain=<Add authDomain>
 databaseURL=<Add databaseURL>
 storageBucket=<Add storageBucket>
+projectID=<Add project ID>
+messagingSenderID=<Add message sender ID>
+appID=<Add app ID>
+measurementID=<add measurement ID>
