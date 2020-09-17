@@ -14,6 +14,7 @@ import pyrebase  # python library for firebase
 from dotenv import load_dotenv  # for accessing environment (.env) file
 import os  # for supporting dotenv
 from datetime import datetime, timedelta  # for date and time
+from time import sleep # For beautification
 
 load_dotenv()  # load environment (.env) file
 
@@ -28,25 +29,27 @@ configurationForFirebase = {
 firebaseObject = pyrebase.initialize_app(configurationForFirebase)  # firebase connection object
 databaseObject = firebaseObject.database()  # firebase database initialisation
 
-ser = serial.Serial("/dev/ttyACM0",9600)
+ser = serial.Serial("/dev/ttyACM0",9600) # Serial port opened for communicating with UNO
 
 logging.basicConfig(filename="app.log", level=logging.DEBUG,format="[%(asctime)s, %(message)s]", datefmt="%d/%m/%Y, %H:%M:%S")
 
+# Definition to convert Serial output to string
 def convertSerialToList(string):
     li = list(string.split(","))
     return li
 
+# Definition to log sensor data
 def dataLogging(inputData):
     logging.debug(inputData)
 
+# Definition to store data in firebase
 def sendDataToFireBase(inputData):
     try:
         now = datetime.now()  # get current time
         logTime = str(now.strftime("%H:%M:%S")) # convert to hour:minute:second
         logDate = str(now.strftime("%Y/%m/%d")) # convert to year/month/day
 
-        databaseObject.child("sensor-values").update(
-            {"cng": inputData[0],
+        theStoreValues = {"cng": inputData[0],
              "air_quality_index": inputData[1],
              "lpg": inputData[2],
              "smoke": inputData[3],
@@ -58,32 +61,32 @@ def sendDataToFireBase(inputData):
              "bmp280_temperature": inputData[9],
              "bmp280_pressure": inputData[10],
              "bmp280_altitude": inputData[11],}
-        )
 
-        databaseObject.child("log").child(logDate).child(logTime).set(
-            {"cng": inputData[0],
-             "air_quality_index": inputData[1],
-             "lpg": inputData[2],
-             "smoke": inputData[3],
-             "co": inputData[4],
-             "rain_sensor": inputData[5],
-             "dht22_temperature": inputData[6],
-             "dht22_humidity": inputData[7], 
-             "dht22_heat_index": inputData[8],
-             "bmp280_temperature": inputData[9],
-             "bmp280_pressure": inputData[10],
-             "bmp280_altitude": inputData[11],}
-        )
+        databaseObject.child("sensor-values").update(theStoreValues)
+        databaseObject.child("log").child(logDate).child(logTime).set(theStoreValues)
     except:
         pass
 
+# Main Definition
 def main():
-    while True:
-        read_serial = ser.readline().strip().decode("utf-8")
-        theDataList = convertSerialToList(read_serial)
-        if len(theDataList) == 12:
-            dataLogging(theDataList)
-            sendDataToFireBase(theDataList)
+    try:
+        print("Home Wather Monitoring System..")
+        print("Developed by Sashwat K <sashwat0001@gmail.com>")
+        print("Initialisating sensors....")
+        sleep(1)
+        print("Initialisation complete....")
+        while True: # for running forever
+            read_serial = ser.readline().strip().decode("utf-8")
+            theDataList = convertSerialToList(read_serial)
+            if len(theDataList) == 12:
+                dataLogging(theDataList)
+                sendDataToFireBase(theDataList)
+    except (KeyboardInterrupt, SystemExit): # for handling ctrl+c
+        print("Releasing sensors..")
+        sleep(1)
+        print("Closing firebase connection..")
+        sleep(1)
+        print("Closing program..")
 
 if __name__ == "__main__":
     main()
