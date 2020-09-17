@@ -89,7 +89,7 @@ void loop() {
       
       String finalValue;
       
-      // CNG,AQI, LPG, Smoke, CO, Rain sensor, DHT Temperature, DHT Humidity, DHT HI, BMP Temperature, BMP Pressure, BMP altitude
+      // CNG, AQI, LPG, Smoke, CO, Rain sensor, DHT Temperature, DHT Humidity, DHT HI, BMP Temperature, BMP Pressure, BMP altitude
       finalValue = String(cngGas?cngGas:0) + "," + String(apiGas?apiGas:0) + "," + String(lpgGas?lpgGas:0) + "," + String(smokeGas?smokeGas:0) + "," + String(mq7_value?mq7_value:0) + "," + String(rainSensor_value?rainSensor_value:0) + "," + String(dhtTemp?dhtTemp:0) + "," + String(dhtHum?dhtHum:0) + "," + String(heatIndex?heatIndex:0) + "," + String(bmpTemp?bmpTemp:0) + "," + String(bmpPres?bmpPres:0) + "," + String(bmpAlt?bmpAlt:0);
       Serial.println(finalValue);
     }

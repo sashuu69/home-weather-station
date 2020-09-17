@@ -8,8 +8,25 @@ Last Updated by : Sashwat K <sashwat0001@gmail.com>
 Last updated on : 18 Sep 2020
 """
 
-import serial
-import logging
+import serial # Library for serial communication
+import logging # Library for logging
+import pyrebase  # python library for firebase
+from dotenv import load_dotenv  # for accessing environment (.env) file
+import os  # for supporting dotenv
+
+load_dotenv()  # load environment (.env) file
+
+# configuration for connection
+configurationForFirebase = {
+    "apiKey": os.getenv("apiKey"),
+    "authDomain": os.getenv("authDomain"),
+    "databaseURL": os.getenv("databaseURL"),
+    "storageBucket": os.getenv("storageBucket"),
+}
+
+firebaseObject = pyrebase.initialize_app(
+    configurationForFirebase)  # firebase connection object
+databaseObject = firebaseObject.database()  # firebase database initialisation
 
 ser = serial.Serial("/dev/ttyACM0",9600)
 
