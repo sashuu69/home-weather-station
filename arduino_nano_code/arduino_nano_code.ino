@@ -3,9 +3,9 @@
  * Purpose : To get values from MQ-4, MQ-135, MQ-5 and MQ-2 and send to UNO via software serial
  * Created on : 12 Sep 2020
  * Created by : Sashwat K <sashwat0001@gmail.com>
- * Revision : 1
+ * Revision : 2
  * Last Updated by : Sashwat K <sashwat0001@gmail.com> 
- * Last updated on : 12 Sep 2020
+ * Last updated on : 17 Sep 2020
  */
 
 #include <ArduinoJson.h> // Library for JSON
@@ -23,17 +23,17 @@ void setup() {
   // put your setup code here, to run once:
   
   // Initialise sensors
-  pinMode(mq4, INPUT);
-  pinMode(mq135, INPUT);
-  pinMode(mq5, INPUT);
-  pinMode(mq2, INPUT);
+  pinMode(mq4, INPUT); // MQ4 for CNG gas
+  pinMode(mq135, INPUT); // MQ4 for Air Quality Index
+  pinMode(mq5, INPUT); // MQ5 for LNG gas
+  pinMode(mq2, INPUT); // MQ2 for smoke
 
   // Initialise Serial
   Serial.begin(9600);
   
-  while (!Serial) continue;
+  while (!Serial) continue; // Check if Serial is available or not
   
-  sSerialToUNO.begin(4800);
+  sSerialToUNO.begin(4800); // Begin software Serial
 }
 
 void loop() {

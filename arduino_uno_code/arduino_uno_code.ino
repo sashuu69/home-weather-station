@@ -3,19 +3,20 @@
  * Purpose : To get values from MQ-4, MQ-135, MQ-5 and MQ-2 and send to UNO via software serial
  * Created on : 12 Sep 2020
  * Created by : Sashwat K <sashwat0001@gmail.com>
- * Revision : 2
+ * Revision : 3
  * Last Updated by : Sashwat K <sashwat0001@gmail.com> 
- * Last updated on : 16 Sep 2020
+ * Last updated on : 17 Sep 2020
  */
 
 #include <ArduinoJson.h> // Library for JSON
 
 #include <SoftwareSerial.h> // Library for Software Serial
 
-#include "DHT.h"
+#include "DHT.h" // Library for DHT22
 #define DHTPIN 8
 #define DHTTYPE DHT22
 
+// Library for BMP280
 #include <Wire.h>
 #include <SPI.h>
 #include <Adafruit_BMP280.h>
@@ -25,14 +26,14 @@
 #define BMP_MOSI (11)
 #define BMP_CS   (10)
 
-SoftwareSerial sSerialToNano(7, 6); // RX, TX
+SoftwareSerial sSerialToNano(7, 6); // Software Serial with Nano (RX,TX)
 
-DHT dht(DHTPIN, DHTTYPE);
+DHT dht(DHTPIN, DHTTYPE); // Initialise DHT22
 
-Adafruit_BMP280 bmp; // I2C
+Adafruit_BMP280 bmp; // Initialise BMP280 (I2C)
 
-const int rainSensorPin = A0;
-const int mq7 = A1;
+const int rainSensorPin = A0; // Rain sensor pin
+const int mq7 = A1; // MQ7 pin
 
 void setup() {
   // put your setup code here, to run once:
@@ -40,6 +41,7 @@ void setup() {
   // Initialise sensors
   pinMode(rainSensorPin, INPUT);
   pinMode(mq7, INPUT);
+  
   dht.begin();
   
   // Initialise Serial
@@ -88,10 +90,11 @@ void loop() {
       String finalValue;
       
       // CNG,AQI, LPG, Smoke, CO, Rain sensor, DHT Temperature, DHT Humidity, DHT HI, BMP Temperature, BMP Pressure, BMP altitude
-      finalValue = "[" + String(cngGas?cngGas:0) + "," + String(apiGas?apiGas:0) + "," + String(lpgGas?lpgGas:0) + "," + String(smokeGas?smokeGas:0) + "," + String(mq7_value?mq7_value:0) + "," + String(rainSensor_value?rainSensor_value:0) + "," + String(dhtTemp?dhtTemp:0) + "," + String(dhtHum?dhtHum:0) + "," + String(heatIndex?heatIndex:0) + "," + String(bmpTemp?bmpTemp:0) + "," + String(bmpPres?bmpPres:0) + "," + String(bmpAlt?bmpAlt:0) + "]";
+      finalValue = String(cngGas?cngGas:0) + "," + String(apiGas?apiGas:0) + "," + String(lpgGas?lpgGas:0) + "," + String(smokeGas?smokeGas:0) + "," + String(mq7_value?mq7_value:0) + "," + String(rainSensor_value?rainSensor_value:0) + "," + String(dhtTemp?dhtTemp:0) + "," + String(dhtHum?dhtHum:0) + "," + String(heatIndex?heatIndex:0) + "," + String(bmpTemp?bmpTemp:0) + "," + String(bmpPres?bmpPres:0) + "," + String(bmpAlt?bmpAlt:0);
       Serial.println(finalValue);
-    } 
+    }
     else {
+      
       // Print error to the "debug" serial port
       Serial.print("deserializeJson() returned ");
       Serial.println(err.c_str());
