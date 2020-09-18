@@ -29,7 +29,7 @@ configurationForFirebase = {
 firebaseObject = pyrebase.initialize_app(configurationForFirebase)  # firebase connection object
 databaseObject = firebaseObject.database()  # firebase database initialisation
 
-ser = serial.Serial("/dev/ttyACM0",9600) # Serial port opened for communicating with UNO
+ser = serial.Serial(os.getenv("usbPortName"),9600) # Serial port opened for communicating with UNO
 
 logging.basicConfig(filename="app.log", level=logging.DEBUG,format="[%(asctime)s, %(message)s]", datefmt="%d/%m/%Y, %H:%M:%S")
 
