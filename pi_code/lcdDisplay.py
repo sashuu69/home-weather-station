@@ -8,7 +8,7 @@ Last Updated by : Sashwat K <sashwat0001@gmail.com>
 Last updated on : 20 Sep 2020
 """
 
-# import RPi_I2C_driver # RPi LCD driver
+import RPi_I2C_driver # RPi LCD driver
 from time import * # Time library
 import pyrebase  # python library for firebase
 from dotenv import load_dotenv  # for accessing environment (.env) file
@@ -27,8 +27,9 @@ configurationForFirebase = {
 firebaseObject = pyrebase.initialize_app(configurationForFirebase)  # firebase connection object
 databaseObject = firebaseObject.database()  # firebase database initialisation
 
-# mylcd = RPi_I2C_driver.lcd() # Initialise LCD driver
+systemLCD = RPi_I2C_driver.lcd() # Initialise LCD driver
 
+# Definition to fetch values from FireBase
 def getValuesFromFirebase():
     listData = []
     listData.append(databaseObject.child(
@@ -58,18 +59,23 @@ def getValuesFromFirebase():
     
     return listData
 
+def displayValuesInLCDInitialise():
+    pass
+
 # Main Definition
 def main():
     try:
         print("Home Weather Station LCD display driver...")
         print("Developed by Sashwat K")
         print("Initialising display..")
+        displayValuesInLCDInitialise()
 
         while True:
             valueList = getValuesFromFirebase()
             print(valueList)
 
     except (KeyboardInterrupt, SystemExit): # for handling ctrl+c
+        systemLCD.lcd_clear()
         print("Closing the program")
 
 if __name__ == "__main__":
