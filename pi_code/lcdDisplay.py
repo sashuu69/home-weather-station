@@ -56,10 +56,22 @@ def getValuesFromFirebase():
                 "sensor-values").child("bmp280_pressure").get().val())
     listData.append(databaseObject.child(
                 "sensor-values").child("bmp280_altitude").get().val())
-    
     return listData
 
 def displayValuesInLCDInitialise():
+    systemLCD.lcd_clear()
+    systemLCD.lcd_display_string_pos("Home Weather", 1,2)
+    systemLCD.lcd_display_string_pos("Station", 2,4)
+    sleep(2)
+    systemLCD.lcd_display_string_pos("Developed By", 1,2)
+    systemLCD.lcd_display_string_pos("Sashwat K", 2,3)
+    sleep(1)
+
+def displayValuesInLCDLoop(listData):
+    systemLCD.lcd_clear()
+    systemLCD.lcd_display_string_pos(str("CNG: " + listData[0] + " PPM"), 1,1)
+    systemLCD.lcd_display_string_pos(str("AQI: " + listData[1] + " PPM"), 2,1)
+    sleep(2)
     pass
 
 # Main Definition
@@ -71,10 +83,12 @@ def main():
         displayValuesInLCDInitialise()
 
         while True:
-            valueList = getValuesFromFirebase()
-            print(valueList)
+            displayValuesInLCDLoop(getValuesFromFirebase())
 
     except (KeyboardInterrupt, SystemExit): # for handling ctrl+c
+        systemLCD.lcd_clear()
+        systemLCD.lcd_display_string_pos("Closing Program..",1,1)
+        sleep(0.8)
         systemLCD.lcd_clear()
         print("Closing the program")
 
