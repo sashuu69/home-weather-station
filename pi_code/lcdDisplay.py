@@ -88,7 +88,7 @@ def displayValuesInLCDLoop(listData):
     systemLCD.lcd_display_string_pos(str("B Temp: " + listData[9] + " C"), 2,1)
     sleep(5)
     systemLCD.lcd_clear()
-    systemLCD.lcd_display_string_pos(str("B Pres: " + listData[10] + " Bar"), 1,1)
+    systemLCD.lcd_display_string_pos(str("B Pres: " + listData[10] + "B"), 1,1)
     systemLCD.lcd_display_string_pos(str("B Alt: " + listData[11] + " m"), 2,1)
     sleep(2)
 
