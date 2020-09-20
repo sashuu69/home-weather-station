@@ -1,6 +1,6 @@
 """
 Project Name : Home Weather Station
-Purpose : To get the values from UNO and log it
+Purpose : To get the values from UNO, log it and save it to firebase
 Created on : 17 Sep 2020
 Created by : Sashwat K <sashwat0001@gmail.com>
 Revision : 3

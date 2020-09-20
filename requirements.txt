@@ -1,3 +1,4 @@
 pyserial
 pyrebase
 python-dotenv
+smbus
