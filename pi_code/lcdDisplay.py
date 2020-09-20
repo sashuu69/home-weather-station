@@ -65,14 +65,32 @@ def displayValuesInLCDInitialise():
     sleep(2)
     systemLCD.lcd_display_string_pos("Developed By", 1,2)
     systemLCD.lcd_display_string_pos("Sashwat K", 2,3)
-    sleep(1)
 
 def displayValuesInLCDLoop(listData):
     systemLCD.lcd_clear()
     systemLCD.lcd_display_string_pos(str("CNG: " + listData[0] + " PPM"), 1,1)
     systemLCD.lcd_display_string_pos(str("AQI: " + listData[1] + " PPM"), 2,1)
     sleep(2)
-    pass
+    systemLCD.lcd_clear()
+    systemLCD.lcd_display_string_pos(str("LPG: " + listData[2] + " PPM"), 1,1)
+    systemLCD.lcd_display_string_pos(str("Smoke: " + listData[3] + " PPM"), 2,1)
+    sleep(2)
+    systemLCD.lcd_clear()
+    systemLCD.lcd_display_string_pos(str("CO: " + listData[2] + " PPM"), 1,1)
+    systemLCD.lcd_display_string_pos(str("Rain: " + listData[3]), 2,1)
+    sleep(2)
+    systemLCD.lcd_clear()
+    systemLCD.lcd_display_string_pos(str("DHT22 Temp: " + listData[2] + " C"), 1,1)
+    systemLCD.lcd_display_string_pos(str("DHT22 Hum: " + listData[3] + " %"), 2,1)
+    sleep(2)
+    systemLCD.lcd_clear()
+    systemLCD.lcd_display_string_pos(str("DHT22 HI: " + listData[2] + " C"), 1,1)
+    systemLCD.lcd_display_string_pos(str("BMP280 Temp: " + listData[3] + " C"), 2,1)
+    sleep(5)
+    systemLCD.lcd_clear()
+    systemLCD.lcd_display_string_pos(str("BMP280 Pres: " + listData[2] + " Bar"), 1,1)
+    systemLCD.lcd_display_string_pos(str("BMP280 Alt: " + listData[3] + " m"), 2,1)
+    sleep(2)
 
 # Main Definition
 def main():
