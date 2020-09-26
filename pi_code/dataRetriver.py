@@ -74,7 +74,7 @@ def main():
         while True: # for running forever
             read_serial = ser.readline().strip().decode("utf-8")
             theDataList = convertSerialToList(read_serial)
-            if len(theDataList) == 12:
+            if len(theDataList) == 8:
                 dataLogging(theDataList)
                 sendDataToFireBase(theDataList)
     except (KeyboardInterrupt, SystemExit): # for handling ctrl+c
