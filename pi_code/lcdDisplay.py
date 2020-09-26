@@ -72,11 +72,11 @@ def displayValuesInLCDLoop(listData):
     sleep(2)
     systemLCD.lcd_clear()
     systemLCD.lcd_display_string_pos(str("Rain: " + listData[4]), 1,1)
-    systemLCD.lcd_display_string_pos(str("HI-D: " + listData[7]), 2,1)
+    systemLCD.lcd_display_string_pos(str("HI: " + listData[7]), 2,1)
     sleep(2)
     systemLCD.lcd_clear()
-    systemLCD.lcd_display_string_pos(str("Temp-D: " + listData[5] + " C"), 1,1)
-    systemLCD.lcd_display_string_pos(str("Hum-D: " + listData[6] + " %"), 2,1)
+    systemLCD.lcd_display_string_pos(str("Temp: " + listData[5] + " C"), 1,1)
+    systemLCD.lcd_display_string_pos(str("Hum: " + listData[6] + " %"), 2,1)
     sleep(2)
 
 # Main Definition
