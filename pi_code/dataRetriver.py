@@ -31,7 +31,7 @@ databaseObject = firebaseObject.database()  # firebase database initialisation
 
 ser = serial.Serial(os.getenv("usbPortName"),9600) # Serial port opened for communicating with UNO
 
-logging.basicConfig(filename="app.log", level=logging.DEBUG,format="[%(asctime)s, %(message)s]", datefmt="%d/%m/%Y, %H:%M:%S")
+logging.basicConfig(filename="dataManage.log", level=logging.DEBUG,format="[%(asctime)s, %(message)s]", datefmt="%d/%m/%Y, %H:%M:%S")
 
 # Definition to convert Serial output to string
 def convertSerialToList(string):
@@ -53,10 +53,10 @@ def sendDataToFireBase(inputData):
              "air_quality_index": inputData[1],
              "lpg": inputData[2],
              "smoke": inputData[3],
-             "rain_sensor": inputData[5],
-             "dht22_temperature": inputData[6],
-             "dht22_humidity": inputData[7], 
-             "dht22_heat_index": inputData[8],}
+             "rain_sensor": inputData[4],
+             "dht22_temperature": inputData[5],
+             "dht22_humidity": inputData[6], 
+             "dht22_heat_index": inputData[7],}
 
         databaseObject.child("sensor-values").update(theStoreValues)
         databaseObject.child("log").child(logDate).child(logTime).set(theStoreValues)
@@ -74,9 +74,13 @@ def main():
         while True: # for running forever
             read_serial = ser.readline().strip().decode("utf-8")
             theDataList = convertSerialToList(read_serial)
+            print("Retriving data..")
             if len(theDataList) == 8:
+                print("No error in serial data..")
                 dataLogging(theDataList)
                 sendDataToFireBase(theDataList)
+            else:
+                print("Error in serial data..")
     except (KeyboardInterrupt, SystemExit): # for handling ctrl+c
         print("Releasing sensors..")
         sleep(1)

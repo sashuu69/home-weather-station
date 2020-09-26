@@ -50,6 +50,8 @@ def getValuesFromFirebase():
                 "sensor-values").child("dht22_heat_index").get().val())
     return listData
 
+
+# definition to Initilise the display
 def displayValuesInLCDInitialise():
     systemLCD.lcd_clear()
     systemLCD.lcd_display_string_pos("Home Weather", 1,2)
@@ -58,6 +60,7 @@ def displayValuesInLCDInitialise():
     systemLCD.lcd_display_string_pos("Developed By", 1,2)
     systemLCD.lcd_display_string_pos("Sashwat K", 2,3)
 
+# definition to display the sensor data
 def displayValuesInLCDLoop(listData):
     systemLCD.lcd_clear()
     systemLCD.lcd_display_string_pos(str("CNG: " + listData[0] + " PPM"), 1,1)
@@ -85,6 +88,7 @@ def main():
         displayValuesInLCDInitialise()
 
         while True:
+            print("Printing data from Firebase to LCD display...")
             displayValuesInLCDLoop(getValuesFromFirebase())
 
     except (KeyboardInterrupt, SystemExit): # for handling ctrl+c
@@ -92,7 +96,7 @@ def main():
         systemLCD.lcd_display_string_pos("Closing Program..",1,1)
         sleep(0.8)
         systemLCD.lcd_clear()
-        print("Closing the program")
+        print("Closing the program...")
 
 if __name__ == "__main__":
     main()
