@@ -41,8 +41,6 @@ def getValuesFromFirebase():
     listData.append(databaseObject.child(
                 "sensor-values").child("smoke").get().val())
     listData.append(databaseObject.child(
-                "sensor-values").child("co").get().val())
-    listData.append(databaseObject.child(
                 "sensor-values").child("rain_sensor").get().val())
     listData.append(databaseObject.child(
                 "sensor-values").child("dht22_temperature").get().val())
@@ -50,12 +48,6 @@ def getValuesFromFirebase():
                 "sensor-values").child("dht22_humidity").get().val())
     listData.append(databaseObject.child(
                 "sensor-values").child("dht22_heat_index").get().val())
-    listData.append(databaseObject.child(
-                "sensor-values").child("bmp280_temperature").get().val())
-    listData.append(databaseObject.child(
-                "sensor-values").child("bmp280_pressure").get().val())
-    listData.append(databaseObject.child(
-                "sensor-values").child("bmp280_altitude").get().val())
     return listData
 
 def displayValuesInLCDInitialise():
@@ -76,20 +68,12 @@ def displayValuesInLCDLoop(listData):
     systemLCD.lcd_display_string_pos(str("Smoke: " + listData[3] + " PPM"), 2,1)
     sleep(2)
     systemLCD.lcd_clear()
-    systemLCD.lcd_display_string_pos(str("CO: " + listData[4] + " PPM"), 1,1)
-    systemLCD.lcd_display_string_pos(str("Rain: " + listData[5]), 2,1)
+    systemLCD.lcd_display_string_pos(str("Rain: " + listData[5]), 1,1)
+    systemLCD.lcd_display_string_pos(str("HI-D: " + listData[8]), 2,1)
     sleep(2)
     systemLCD.lcd_clear()
     systemLCD.lcd_display_string_pos(str("Temp-D: " + listData[6] + " C"), 1,1)
     systemLCD.lcd_display_string_pos(str("Hum-D: " + listData[7] + " %"), 2,1)
-    sleep(2)
-    systemLCD.lcd_clear()
-    systemLCD.lcd_display_string_pos(str("HI-D: " + listData[8]), 1,1)
-    systemLCD.lcd_display_string_pos(str("Temp-B: " + listData[9] + " C"), 2,1)
-    sleep(5)
-    systemLCD.lcd_clear()
-    systemLCD.lcd_display_string_pos(str("Pres-B: " + listData[10] + "B"), 1,1)
-    systemLCD.lcd_display_string_pos(str("Alt-B: " + listData[11] + " m"), 2,1)
     sleep(2)
 
 # Main Definition
