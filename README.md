@@ -13,9 +13,9 @@ The home Weather Station is a DYI weather Station that collects the following da
 7. Humidity
 8. Heat Index
 
-![Device Pic](docs/main.jpg | width=250)
+<img src="docs/main.jpg" width="450px"><br>
 
-![Display Pic](docs/display_main.jpg | width=250)
+<img src="docs/display_main.jpg" width="450px">
 
 ## Features
 
@@ -49,9 +49,9 @@ Discount code for Tomson Electronics : ZENOOFF2020
 
 ## Images
 
-![Image 1](docs/image1.jpg | width=250)
+<img src="docs/image1.jpg" width="250px"><br>
 
-![Image 2](docs/image2.jpg | width=250)
+<img src="docs/image2.jpg" width="250px">
 
 ## Sensor Info
 
