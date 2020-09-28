@@ -44,6 +44,7 @@ The home Weather Station is a DYI weather Station that collects the following da
 17. Dotted PCB - [Robo Elements](https://www.roboelements.com/product/general-purpose-zero-pcb-printed-circuit-board-4x6-inches/)
 18. Ribbon cable - [Amazon](https://www.amazon.in/Ribbon-Cable-10-wire-15ft/dp/B007R9SQQM)
 19. USB extension cable - [Amazon](https://www.amazon.com/Monoprice-Extension-Repeater-PlayStation-Keyboard/dp/B004PLLA9U?th=1)
+20. Powered USB hub - [Amazon](https://www.amazon.in/Protronix-Port-USB-Power-Adapter/dp/B00REX6DRK)
 
 Discount code for Tomson Electronics : ZENOOFF2020
 
@@ -51,7 +52,13 @@ Discount code for Tomson Electronics : ZENOOFF2020
 
 <img src="docs/image1.jpg" width="250px"><br>
 
-<img src="docs/image2.jpg" width="250px">
+<img src="docs/image2.jpg" width="250px"><br>
+
+<img src="docs/image3.jpg" width="250px"><br>
+
+<img src="docs/image4.jpg" width="250px"><br>
+
+<img src="docs/image5.jpg" width="250px"><br>
 
 ## Sensor Info
 
@@ -66,7 +73,11 @@ DHT22 | Temperature, Humidity and Heat Index
 
 ## Database
 
-<img src="docs/firebase.png" width="400px">
+<img src="docs/firebase.png" width="300px">
+
+## Old Protoype
+
+<img src="docs/old.jpg" width="250px"><br>
 
 ## TO-DO
 
