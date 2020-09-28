@@ -64,6 +64,10 @@ MQ-135 | AQI
 Rain sensor | Rain
 DHT22 | Temperature, Humidity and Heat Index
 
+## Database
+
+<img src="docs/firebase.png" width="400px">
+
 ## TO-DO
 
 1. Convert analog values from gas sensors to PPM (Parts Per Million).
