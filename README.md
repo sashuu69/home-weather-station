@@ -21,9 +21,24 @@ The home Weather Station is a DYI weather Station that collects the following da
 
 1. Collects AQI, CNG, LPG, smoke, temperature, humidty, rain presence and heat index.
 2. Stores the data in a log file and Firebase.
-3. Aa LCD display to show the current latest values from the sensors.
+3. Dispays the data in a LCD display.
 
-## Components USed
+## Folder Structure
+
+1. arduino_nano_code: Contains the embedded C code for flashing to the arduino nano board.
+2. arduino_uno_code: Contains the embedded C code for flashing to the arduino uno board.
+3. docs: Contains images of the product.
+4. eagle_design: Contains the schematics and board designs built using Autodesk Eagle (Under development).
+5. fritzing_design: Contains pictorial design of circuit built using fritzing software (Under development).
+6. fusion_design: Contains Autodesk fusion 360 files for the boxes (Under development).
+7. pi_code: Contains the code to be run on the Raspberry Pi Zero W.
+7.1. dataRetriver.py: Python program that gets values from sensor and stores the data in log file and firebase.
+7.2. lcdDisplay.py: Python program to display data on LCD screen.
+7.3. RPi_I2C_driver.py: LCD display driver.
+7.4. sampleENV: A sample env that lists all the env variables used by the programs.
+7.5. telegramBotDaemon.py: Python program to fetch necessary data and send data to telegram bot (Under development).
+
+## Components Used
 
 1. Arduino Nano - [Tomson Electronics](https://www.tomsonelectronics.com/products/buy-arduino-nano-v3-0-online-india)
 2. Arduino UNO and programming cable - [Tomson Electronics](https://www.tomsonelectronics.com/products/arduino-bundle-1)
@@ -45,8 +60,19 @@ The home Weather Station is a DYI weather Station that collects the following da
 18. Ribbon cable - [Amazon](https://www.amazon.in/Ribbon-Cable-10-wire-15ft/dp/B007R9SQQM)
 19. USB extension cable - [Amazon](https://www.amazon.com/Monoprice-Extension-Repeater-PlayStation-Keyboard/dp/B004PLLA9U?th=1)
 20. Powered USB hub - [Amazon](https://www.amazon.in/Protronix-Port-USB-Power-Adapter/dp/B00REX6DRK)
+21. Pole, Umbrella, wires, tapes and zip ties
 
 Discount code for Tomson Electronics : ZENOOFF2020
+
+## Pre-Installation Steps
+
+1. Connect the sensors as per circuit diagram.
+2. Flash the nano and uno code respectively.
+3. Clone the project in Raspberry Pi Zero W.
+4. Rename sampleENV as .env.
+5. Create Realtime database in firebase.
+6. add the necessary edits to .env file
+7. Run the python programs inside pi_code folder.
 
 ## Images
 
@@ -85,3 +111,4 @@ DHT22 | Temperature, Humidity and Heat Index
 2. Final gas sensor calibration.
 3. Web Application in python flask to show the generatd values.
 4. pyQT application for basic monitoring.
+5. Telegram bot for basic info.
