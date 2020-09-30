@@ -32,11 +32,11 @@ The home Weather Station is a DYI weather Station that collects the following da
 5. fritzing_design: Contains pictorial design of circuit built using fritzing software (Under development).
 6. fusion_design: Contains Autodesk fusion 360 files for the boxes (Under development).
 7. pi_code: Contains the code to be run on the Raspberry Pi Zero W.
-7.1. dataRetriver.py: Python program that gets values from sensor and stores the data in log file and firebase.
-7.2. lcdDisplay.py: Python program to display data on LCD screen.
-7.3. RPi_I2C_driver.py: LCD display driver.
-7.4. sampleENV: A sample env that lists all the env variables used by the programs.
-7.5. telegramBotDaemon.py: Python program to fetch necessary data and send data to telegram bot (Under development).
+    1. dataRetriver.py: Python program that gets values from sensor and stores the data in log file and firebase.
+    2. lcdDisplay.py: Python program to display data on LCD screen.
+    3. RPi_I2C_driver.py: LCD display driver.
+    4. sampleENV: A sample env that lists all the env variables used by the programs.
+    5. telegramBotDaemon.py: Python program to fetch necessary data and send data to telegram bot (Under development).
 
 ## Components Used
 
