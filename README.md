@@ -109,6 +109,6 @@ DHT22 | Temperature, Humidity and Heat Index
 
 1. Convert analog values from gas sensors to PPM (Parts Per Million).
 2. Final gas sensor calibration.
-3. Web Application in python flask to show the generatd values.
+3. Web Application in python flask to show the generated values.
 4. pyQT application for basic monitoring.
 5. Telegram bot for basic info.

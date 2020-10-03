@@ -2,3 +2,6 @@ pyserial
 pyrebase
 python-dotenv
 smbus
+requests
+lxml
+beautifulsoup4
