@@ -21,17 +21,38 @@ def respond():
 
    # Telegram understands UTF-8, so encode text for unicode compatibility
    text = update.message.text.encode('utf-8').decode()
-   # for debugging purposes only
-   print("got text message :", text)
+
    # the first time you chat with the bot AKA the welcoming message
    if text == "/start":
-       # print the welcoming message
        bot_welcome = """
-       Welcome to coolAvatar bot, the bot is using the service from http://avatars.adorable.io/ to generate cool looking avatars based on the name you enter so please enter a name and the bot will reply with an avatar for your name.
+       HOME WEATHER STATION
+       
+       Welcome to Sashwat's Home Weather Station. Use the following commands for stats:-
+       1. /stats - Gives all values
+       2. /AQI (MQ-135) - Air Quality Index in PPM
+       3. /CNG (MQ-4) - Compressed Natural Gas in PPM
+       4. /HI (DHT22) - Heat Index in Celsius
+       5. /HUM (DHT22) - Humidity in Percentage
+       6. /TEM (DHT22) - Temperature in Celsius
+       7. /LPG (MQ-5) - LPG in PPM
+       8. /RAIN - Analog Value
+       9. /SMKE (MQ-2) - Smoke in in PPM
+       
+       NOTES:-
+       1. Project under development.
+       2. Gas sensors need Calibration.
+       3. More features will be added soon.
+
+       Features:-
+       1. Get Latest sensor values from sensors.
+
+       GITHUB PROJECT LINK - https://github.com/sashuu6/home-weather-station
        """
+       
        # send the welcoming message
        bot.sendMessage(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
 
+    if text == "/start":
 
    else:
        try:
@@ -52,9 +73,9 @@ def respond():
 def set_webhook():
    s = bot.setWebhook('{URL}{HOOK}'.format(URL=URL, HOOK=TOKEN))
    if s:
-       return "webhook setup ok"
+       return "HOME WEATHER STATION WEBHOOK WORKING PROPERLY. STATUS: 200"
    else:
-       return "webhook setup failed"
+       return "HOME WEATHER STATION WEBHOOK ERROR. STAUS: 400"
 
 @app.route('/')
 def index():
