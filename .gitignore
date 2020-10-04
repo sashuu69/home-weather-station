@@ -2,4 +2,4 @@
 .env
 __pycache__
 .vscode
-credentials.py
+heroku_code/telegram-bot/telebot/credentials.py
