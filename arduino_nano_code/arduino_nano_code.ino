@@ -1,11 +1,11 @@
 /*
  * Project Name : Home Weather Station
- * Purpose : To get values from MQ-4, MQ-135, MQ-5 and MQ-2 and send to UNO via software serial
+ * Purpose : To get values from MQ-4, MQ-135, MQ-5 and MQ-2 and send to UNO via software serial as PPM
  * Created on : 12 Sep 2020
  * Created by : Sashwat K <sashwat0001@gmail.com>
- * Revision : 2
+ * Revision : 3
  * Last Updated by : Sashwat K <sashwat0001@gmail.com> 
- * Last updated on : 17 Sep 2020
+ * Last updated on : 04 Oct 2020
  */
 
 #include <ArduinoJson.h> // Library for JSON
@@ -18,6 +18,11 @@ const int mq4 = A0; // CNG gas
 const int mq135 = A1; // Air Quality Index
 const int mq5 = A2; // LPG gas
 const int mq2 = A3; // Smoke
+
+// For Gas sensors
+float m = -0.6527; //Slope 
+float b = 1.30; //Y-Intercept 
+float R0 = 21.91; //Sensor Resistance in fresh air from previous code
 
 void setup() {
   // put your setup code here, to run once:
@@ -40,10 +45,10 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   // Get values from Sensor in PPM
-  int mq4_value = analogRead(mq4);
-  int mq135_value = analogRead(mq135);
-  int mq5_value = analogRead(mq5);
-  int mq2_value = analogRead(mq2);
+  double mq4_value = analogToPPM(analogRead(mq4));
+  double mq135_value = analogToPPM(analogRead(mq135));
+  double mq5_value = analogToPPM(analogRead(mq5));
+  double mq2_value = analogToPPM(analogRead(mq2));
 
   // Create JSON data
   StaticJsonDocument<200> doc;
@@ -62,4 +67,21 @@ void loop() {
   Serial.println("************************************\n\n");
   
   delay(30000); // 30 Seconds
+}
+
+// Function to convert analog values from gas sensors to PPM
+double analogToPPM(int aValue) {
+  float sensor_volt; //Define variable for sensor voltage 
+  float RS_gas; //Define variable for sensor resistance  
+  float ratio; //Define variable for ratio
+  int sensorValue = aValue; //Read analog values of sensor
+
+  sensor_volt = sensorValue*(5.0/1023.0); //Convert analog values to voltage 
+  RS_gas = ((5.0*10.0)/sensor_volt)-10.0; //Get value of RS in a gas
+  ratio = RS_gas/R0;  // Get ratio RS_gas/RS_air
+
+  double ppm_log = (log10(ratio)-b)/m; //Get ppm value in linear scale according to the the ratio value  
+  double ppm = pow(10, ppm_log); //Convert ppm value to log scale 
+
+  return ppm;
 }

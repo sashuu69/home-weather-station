@@ -21,10 +21,10 @@ The home Weather Station is a DYI weather Station that collects the following da
 
 ## Features
 
-1. Collects AQI, CNG, LPG, smoke, temperature, humidty, rain presence and heat index.
+1. Collects AQI, CNG, LPG, smoke, temperature, humidty, rain presence and heat index. The values from gas sensors are converted to PPM. Thank you for [Bharath Kinnera](https://www.youtube.com/channel/UCRqjLSpVN0EyjDmoq2dKJwg) for this [Gas sensor PPM conversion video](https://www.youtube.com/watch?v=w5kyyQCsyfQ).
 2. Stores the data in a log file and Firebase.
 3. Dispays the data in a LCD display.
-4. A telegram bot for fetching values
+4. A telegram bot for fetching values.
 
 ## Folder Structure
 
@@ -127,7 +127,5 @@ DHT22 | Temperature, Humidity and Heat Index
 
 ## TO-DO
 
-1. Convert analog values from gas sensors to PPM (Parts Per Million).
-2. Final gas sensor calibration.
-3. Web Application in python flask to show the generated values.
-4. pyQT application for basic monitoring.
+1. Web Application in python flask to show the generated values.
+2. pyQT application for basic monitoring.
