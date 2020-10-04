@@ -22,16 +22,18 @@ The home Weather Station is a DYI weather Station that collects the following da
 1. Collects AQI, CNG, LPG, smoke, temperature, humidty, rain presence and heat index.
 2. Stores the data in a log file and Firebase.
 3. Dispays the data in a LCD display.
+4. A telegram bot for fetching values
 
 ## Folder Structure
 
 1. arduino_nano_code: Contains the embedded C code for flashing to the arduino nano board.
 2. arduino_uno_code: Contains the embedded C code for flashing to the arduino uno board.
 3. docs: Contains images of the product.
-4. eagle_design: Contains the schematics and board designs built using Autodesk Eagle (Under development).
-5. fritzing_design: Contains pictorial design of circuit built using fritzing software (Under development).
-6. fusion_design: Contains Autodesk fusion 360 files for the boxes (Under development).
-7. pi_code: Contains the code to be run on the Raspberry Pi Zero W.
+4. heroku_code: Telegram bot python code for Heroku server.
+5. eagle_design: Contains the schematics and board designs built using Autodesk Eagle (Under development).
+6. fritzing_design: Contains pictorial design of circuit built using fritzing software (Under development).
+7. fusion_design: Contains Autodesk fusion 360 files for the boxes (Under development).
+8. pi_code: Contains the code to be run on the Raspberry Pi Zero W.
     1. dataRetriver.py: Python program that gets values from sensor and stores the data in log file and firebase.
     2. lcdDisplay.py: Python program to display data on LCD screen.
     3. RPi_I2C_driver.py: LCD display driver.
@@ -73,6 +75,17 @@ Discount code for Tomson Electronics : ZENOOFF2020
 5. Create Realtime database in firebase.
 6. add the necessary edits to .env file
 7. Run the python programs inside pi_code folder.
+8. create a python inside heroku_code/telegram-bot with name credentials.py with following contents:-
+
+    ```python
+    bot_token = "Bot Token"
+    bot_user_name = "Bot Username"
+    URL = "Heroku app URL"
+    firebase_token = "Firebase token"
+    firebase_authDomain = "Firebase authDomain"
+    firebase_databaseURL = "Firebase database URL"
+    firebase_storageBucket = "Firebase Storage Bucket"
+    ```
 
 ## Images
 
@@ -111,4 +124,3 @@ DHT22 | Temperature, Humidity and Heat Index
 2. Final gas sensor calibration.
 3. Web Application in python flask to show the generated values.
 4. pyQT application for basic monitoring.
-5. Telegram bot for basic info.
