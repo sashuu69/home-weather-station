@@ -3,7 +3,7 @@ Project Name : Home Weather Station
 Purpose : For telegram bot
 Created on : 04 Oct 2020
 Created by : Sashwat K <sashwat0001@gmail.com>
-Revision : 1
+Revision : 2
 Last Updated by : Sashwat K <sashwat0001@gmail.com>
 Last updated on : 04 Oct 2020
 """
@@ -54,27 +54,39 @@ def getValuesFromFirebaseList():
         "sensor-values").child("dht22_humidity").get().val())
     listData.append(databaseObject.child(
         "sensor-values").child("dht22_heat_index").get().val())
+    listData.append(databaseObject.child(
+        "sensor-values").child("last_updated").get().val())    
     return listData
 
 
 # Definition to get Individual Value
 def getValuesFromFirebaseInd(valueName):
+    result = []
+    result.append(databaseObject.child("sensor-values").child("last_updated").get().val())
     if valueName == "AQI":
-        return databaseObject.child("sensor-values").child("air_quality_index").get().val()
+        result.append(databaseObject.child("sensor-values").child("air_quality_index").get().val())
+        return result
     elif valueName == "CNG":
-        return databaseObject.child("sensor-values").child("cng").get().val()
+        result.append(databaseObject.child("sensor-values").child("cng").get().val())
+        return result
     elif valueName == "HI":
-        return databaseObject.child("sensor-values").child("dht22_heat_index").get().val()
+        result.append(databaseObject.child("sensor-values").child("dht22_heat_index").get().val())
+        return result
     elif valueName == "HUM":
-        return databaseObject.child("sensor-values").child("dht22_humidity").get().val()
+        result.append(databaseObject.child("sensor-values").child("dht22_humidity").get().val())
+        return result
     elif valueName == "TEM":
-        return databaseObject.child("sensor-values").child("dht22_temperature").get().val()
+        result.append(databaseObject.child("sensor-values").child("dht22_temperature").get().val())
+        return result
     elif valueName == "LPG":
-        return databaseObject.child("sensor-values").child("lpg").get().val()
+        result.append(databaseObject.child("sensor-values").child("lpg").get().val())
+        return result
     elif valueName == "RAIN":
-        return databaseObject.child("sensor-values").child("rain_sensor").get().val()
+        result.append(databaseObject.child("sensor-values").child("rain_sensor").get().val())
+        return result
     elif valueName == "SMKE":
-        return databaseObject.child("sensor-values").child("smoke").get().val()
+        result.append(databaseObject.child("sensor-values").child("smoke").get().val())
+        return result
 
 
 @app.route('/{}'.format(TOKEN), methods=['POST'])
@@ -90,6 +102,7 @@ def respond():
 
     individualValue = """
     {} : {} {}
+    Last Updated : {}
     """
 
     # the first time you chat with the bot AKA the welcoming message
@@ -105,7 +118,7 @@ def respond():
        5. /HUM (DHT22) - Humidity in Percentage
        6. /TEM (DHT22) - Temperature in Celsius
        7. /LPG (MQ-5) - LPG in PPM
-       8. /RAIN - Analog Value
+       8. /RAIN (Rain sensor) - Analog Value
        9. /SMKE (MQ-2) - Smoke in in PPM
 
        NOTES:-
@@ -135,42 +148,52 @@ def respond():
         6. TEMPERATURE: {} °C
         7. HUMIDITY: {} %
         8. HI: {} °C
-        """.format(firebaseResult[0], firebaseResult[1], firebaseResult[2], firebaseResult[3], firebaseResult[4], firebaseResult[5], firebaseResult[6], firebaseResult[7])
+
+        Last Updated : {}
+        """.format(firebaseResult[0], firebaseResult[1], firebaseResult[2], firebaseResult[3], firebaseResult[4], firebaseResult[5], firebaseResult[6], firebaseResult[7], firebaseResult[8])
 
         # Send the stat output
         bot.sendMessage(chat_id=chat_id, text=resultCommand,
                         reply_to_message_id=msg_id)
 
     elif text == "/AQI":
-        bot.sendMessage(chat_id=chat_id, text=individualValue.format("AQI", getValuesFromFirebaseInd("AQI"), "PPM"),
+        firebaseValues = getValuesFromFirebaseInd("AQI")
+        bot.sendMessage(chat_id=chat_id, text=individualValue.format("AQI", firebaseValues[1], "PPM",firebaseValues[0]),
                         reply_to_message_id=msg_id)
 
     elif text == "/CNG":
-        bot.sendMessage(chat_id=chat_id, text=individualValue.format("CNG", getValuesFromFirebaseInd("CNG"), "PPM"),
+        firebaseValues = getValuesFromFirebaseInd("CNG")
+        bot.sendMessage(chat_id=chat_id, text=individualValue.format("CNG", firebaseValues[1], "PPM", firebaseValues[0]),
                         reply_to_message_id=msg_id)
 
     elif text == "/HI":
-        bot.sendMessage(chat_id=chat_id, text=individualValue.format("HI", getValuesFromFirebaseInd("HI"), "PPM"),
+        firebaseValues = getValuesFromFirebaseInd("HI")
+        bot.sendMessage(chat_id=chat_id, text=individualValue.format("HI", firebaseValues[1], "°C", firebaseValues[0]),
                         reply_to_message_id=msg_id)
 
     elif text == "/HUM":
-        bot.sendMessage(chat_id=chat_id, text=individualValue.format("HUM", getValuesFromFirebaseInd("HUM"), "PPM"),
+        firebaseValues = getValuesFromFirebaseInd("HUM")
+        bot.sendMessage(chat_id=chat_id, text=individualValue.format("HUM", firebaseValues[1], "%", firebaseValues[0]),
                         reply_to_message_id=msg_id)
 
     elif text == "/TEM":
-        bot.sendMessage(chat_id=chat_id, text=individualValue.format("TEM", getValuesFromFirebaseInd("TEM"), "PPM"),
+        firebaseValues = getValuesFromFirebaseInd("TEM")
+        bot.sendMessage(chat_id=chat_id, text=individualValue.format("TEM", firebaseValues[1], "°C", firebaseValues[0]),
                         reply_to_message_id=msg_id)
 
     elif text == "/LPG":
-        bot.sendMessage(chat_id=chat_id, text=individualValue.format("LPG", getValuesFromFirebaseInd("LPG"), "PPM"),
+        firebaseValues = getValuesFromFirebaseInd("LPG")
+        bot.sendMessage(chat_id=chat_id, text=individualValue.format("LPG", firebaseValues[1], "PPM", firebaseValues[0]),
                         reply_to_message_id=msg_id)
 
     elif text == "/RAIN":
-        bot.sendMessage(chat_id=chat_id, text=individualValue.format("RAIN", getValuesFromFirebaseInd("RAIN"), " "),
+        firebaseValues = getValuesFromFirebaseInd("RAIN")
+        bot.sendMessage(chat_id=chat_id, text=individualValue.format("RAIN", firebaseValues[1], " ", firebaseValues[0]),
                         reply_to_message_id=msg_id)
 
     elif text == "/SMKE":
-        bot.sendMessage(chat_id=chat_id, text=individualValue.format("SMOKE", getValuesFromFirebaseInd("SMKE"), "PPM"),
+        firebaseValues = getValuesFromFirebaseInd("SMKE")
+        bot.sendMessage(chat_id=chat_id, text=individualValue.format("SMOKE", firebaseValues[1], "PPM", firebaseValues[0]),
                         reply_to_message_id=msg_id)
 
     else:
