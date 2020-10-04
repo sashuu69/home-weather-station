@@ -1,7 +1,0 @@
-pyserial
-pyrebase
-python-dotenv
-smbus
-flask
-python-telegram-bot
-requests
