@@ -15,7 +15,9 @@ The home Weather Station is a DYI weather Station that collects the following da
 
 <img src="docs/main.jpg" width="450px"><br>
 
-<img src="docs/display_main.jpg" width="450px">
+<img src="docs/display_main.jpg" width="450px"><br>
+
+<img src="docs/telegram.gif" width="450px">
 
 ## Features
 
