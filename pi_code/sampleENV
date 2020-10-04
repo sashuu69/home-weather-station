@@ -7,5 +7,3 @@ messagingSenderID=<Add message sender ID>
 appID=<Add app ID>
 measurementID=<add measurement ID>
 usbPortName=<add usb port name>
-telegramAPI=<Add telegram API>
-botUserName=<add bot username>
