@@ -1,10 +1,20 @@
-import re
-from flask import Flask, request
+"""
+Project Name : Home Weather Station
+Purpose : For telegram bot
+Created on : 04 Oct 2020
+Created by : Sashwat K <sashwat0001@gmail.com>
+Revision : 1
+Last Updated by : Sashwat K <sashwat0001@gmail.com>
+Last updated on : 04 Oct 2020
+"""
+
+from flask import Flask, request  # python Flask
 import pyrebase  # python library for firebase
-import telegram
+import telegram  # Python telegram bot library
+# Custom library for getting seceret credentials
 from telebot.credentials import bot_token, bot_user_name, URL, firebase_token, firebase_authDomain, firebase_databaseURL, firebase_storageBucket
 
-
+# For BOT creation
 global bot
 global TOKEN
 TOKEN = bot_token
