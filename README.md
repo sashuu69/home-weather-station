@@ -29,16 +29,21 @@ The home Weather Station is a DYI weather Station that collects the following da
 1. arduino_nano_code: Contains the embedded C code for flashing to the arduino nano board.
 2. arduino_uno_code: Contains the embedded C code for flashing to the arduino uno board.
 3. docs: Contains images of the product.
-4. heroku_code: Telegram bot python code for Heroku server.
+4. heroku_code/telegram-bot: Telegram bot python code for Heroku server.
+    1. telebot
+        1. __init__.py: Library initialisation.
+    2. app.py: Main program for telegram bot.
+    3. Procfile: Procfile is for Heruku.
+    4. requirements.txt: Library names required for running telegram bot program.
 5. eagle_design: Contains the schematics and board designs built using Autodesk Eagle (Under development).
 6. fritzing_design: Contains pictorial design of circuit built using fritzing software (Under development).
 7. fusion_design: Contains Autodesk fusion 360 files for the boxes (Under development).
 8. pi_code: Contains the code to be run on the Raspberry Pi Zero W.
     1. dataRetriver.py: Python program that gets values from sensor and stores the data in log file and firebase.
     2. lcdDisplay.py: Python program to display data on LCD screen.
-    3. RPi_I2C_driver.py: LCD display driver.
-    4. sampleENV: A sample env that lists all the env variables used by the programs.
-    5. telegramBotDaemon.py: Python program to fetch necessary data and send data to telegram bot (Under development).
+    3. requirements.txt: Required libraries for the python programs in this folder.
+    4. RPi_I2C_driver.py: LCD display driver.
+    5. sampleENV: A sample env that lists all the env variables used by the programs.
 
 ## Components Used
 
