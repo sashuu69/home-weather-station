@@ -127,5 +127,10 @@ DHT22 | Temperature, Humidity and Heat Index
 
 ## TO-DO
 
-1. Web Application in python flask to show the generated values.
-2. pyQT application for basic monitoring.
+1. Fritzing design
+2. Eagle design
+3. Fusion 360 design
+
+## Contributions
+
+1. Sashwat K (@sashuu6) <sashwat0001@gmail.com>
