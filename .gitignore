@@ -4,3 +4,4 @@ __pycache__
 .vscode
 credentials.py
 .DS_Store
+django_env
