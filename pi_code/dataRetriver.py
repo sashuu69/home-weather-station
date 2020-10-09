@@ -56,7 +56,8 @@ def sendDataToFireBase(inputData):
              "rain_sensor": inputData[4],
              "dht22_temperature": inputData[5],
              "dht22_humidity": inputData[6], 
-             "dht22_heat_index": inputData[7],}
+             "dht22_heat_index": inputData[7],
+             "last_updated": str(logDate) + " " + str(logTime),}
 
         databaseObject.child("sensor-values").update(theStoreValues)
         databaseObject.child("log").child(logDate).child(logTime).set(theStoreValues)
