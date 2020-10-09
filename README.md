@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The home Weather Station is a DYI weather Station that collects the following data and uploads the data to firebase:-
+The home Weather Station is a DIY weather Station that collects the following data and uploads the data to firebase:-
 
 1. Air Quality Index
 2. Compressed Natural Gas (CNG)
