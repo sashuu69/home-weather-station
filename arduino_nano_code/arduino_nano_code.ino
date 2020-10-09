@@ -3,9 +3,9 @@
  * Purpose : To get values from MQ-4, MQ-135, MQ-5 and MQ-2 and send to UNO via software serial as PPM
  * Created on : 12 Sep 2020
  * Created by : Sashwat K <sashwat0001@gmail.com>
- * Revision : 3
+ * Revision : 4
  * Last Updated by : Sashwat K <sashwat0001@gmail.com> 
- * Last updated on : 04 Oct 2020
+ * Last updated on : 09 Oct 2020
  */
 
 #include <ArduinoJson.h> // Library for JSON
@@ -81,7 +81,6 @@ double analogToPPM(int aValue) {
   ratio = RS_gas/R0;  // Get ratio RS_gas/RS_air
 
   double ppm_log = (log10(ratio)-b)/m; //Get ppm value in linear scale according to the the ratio value  
-  double ppm = pow(10, ppm_log); //Convert ppm value to log scale 
 
-  return ppm;
+  return ppm_log;
 }

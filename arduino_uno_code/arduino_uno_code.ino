@@ -3,9 +3,9 @@
  * Purpose : To get values from MQ-4, MQ-135, MQ-5 and MQ-2 and send to UNO via software serial
  * Created on : 12 Sep 2020
  * Created by : Sashwat K <sashwat0001@gmail.com>
- * Revision : 3
+ * Revision : 4
  * Last Updated by : Sashwat K <sashwat0001@gmail.com> 
- * Last updated on : 24 Sep 2020
+ * Last updated on : 09 Oct 2020
  */
 
 #include <ArduinoJson.h> // Library for JSON
@@ -16,7 +16,7 @@
 #define DHTPIN 8
 #define DHTTYPE DHT22
 
-SoftwareSerial sSerialToNano(7, 6); // Software Serial with Nano (RX,TX)
+SoftwareSerial sSerialToNano(6, 7); // Software Serial with Nano (RX,TX)
 
 DHT dht(DHTPIN, DHTTYPE); // Initialise DHT22
 
@@ -48,17 +48,17 @@ void loop() {
   
   if (sSerialToNano.available()) {
     
-    StaticJsonDocument<300> doc;
+    StaticJsonDocument<400> doc;
     
     // Read the JSON document from the "link" serial port
     DeserializationError err = deserializeJson(doc, sSerialToNano);
     
     if (err == DeserializationError::Ok) {
       
-      int cngGas = doc["cng_gas"].as<int>();
-      int apiGas = doc["aqi_gas"].as<int>();
-      int lpgGas = doc["lpg_gas"].as<int>();
-      int smokeGas = doc["smoke_gas"].as<int>();
+      double cngGas = doc["cng_gas"].as<double>();
+      double apiGas = doc["aqi_gas"].as<double>();
+      double lpgGas = doc["lpg_gas"].as<double>();
+      double smokeGas = doc["smoke_gas"].as<double>();
       
       String finalValue;
       
