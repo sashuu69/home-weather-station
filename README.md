@@ -37,9 +37,7 @@ The home Weather Station is a DIY weather Station that collects the following da
     2. app.py: Main program for telegram bot.
     3. Procfile: Procfile is for Heruku.
     4. requirements.txt: Library names required for running telegram bot program.
-5. eagle_design: Contains the schematics and board designs built using Autodesk Eagle (Under development).
-6. fritzing_design: Contains pictorial design of circuit built using fritzing software (Under development).
-7. pi_code: Contains the code to be run on the Raspberry Pi Zero W.
+5. pi_code: Contains the code to be run on the Raspberry Pi Zero W.
     1. dataRetriver.py: Python program that gets values from sensor and stores the data in log file and firebase.
     2. lcdDisplay.py: Python program to display data on LCD screen.
     3. requirements.txt: Required libraries for the python programs in this folder.
@@ -123,11 +121,6 @@ DHT22 | Temperature, Humidity and Heat Index
 ## Old Protoype
 
 <img src="docs/old.jpg" width="250px"><br>
-
-## TO-DO
-
-1. Fritzing design
-2. Eagle design
 
 ## Contributions
 
